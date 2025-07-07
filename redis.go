@@ -69,7 +69,6 @@ func (r *RedisCli) Shorten(url string, exp int64) (string, error) {
 	}
 
 	sl := base62.StdEncoding.EncodeToString([]byte(strconv.Itoa(int(id))))
-	//eid := Encode(uint64(id))
 
 	err = r.Cli.Set(fmt.Sprintf(SHORTLINKKEY, sl), url, 30*time.Minute*time.Duration(exp)).Err()
 	if err != nil {
@@ -81,7 +80,6 @@ func (r *RedisCli) Shorten(url string, exp int64) (string, error) {
 		return "", err
 	}
 
-	// 存储详细信息
 	detail := URLDetail{
 		URL:                 url,
 		CreatedAt:           time.Now().String(),
